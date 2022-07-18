@@ -9,7 +9,7 @@ using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour
 {
-	[SerializeField] private float Jump;
+	[SerializeField] private float m_JumpForce;
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
@@ -86,9 +86,7 @@ public class CharacterController2D : MonoBehaviour
 		{
 			// Add a vertical force to the player.
 			m_Grounded = false;
-			//m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
-			// And then smoothing it out and applying it to the character
-			m_Rigidbody2D.velocity = Vector2.up * Jump;
+			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 	}
 
