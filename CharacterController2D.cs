@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////
 /////////////// MODFIY BY JEFF ////////////////
 ///////////////////////////////////////////////
-
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,6 +14,7 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
+	[Range(0, 200)][SerializeField] private int jfac;							// Jumping Force Add Constat
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	public bool m_Grounded;            // Whether or not the player is grounded.
@@ -84,12 +85,44 @@ public class CharacterController2D : MonoBehaviour
 		// If the player should jump...
 		if (m_Grounded && jump)
 		{
-			// Add a vertical force to the player.
 			m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			StartCoroutine("JumpForceAdding"); // Add a vertical force to the player.
 		}
 	}
 
+	private IEnumerator JumpForceAdding() 
+	{
+		float orginalgravity = m_Rigidbody2D.gravityScale;	
+		for(int i = 1; i < jfac; i++) 
+		{
+
+			m_Rigidbody2D.gravityScale = 0;
+			if (jfac % 10 == 0)
+			{
+				m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce/10));
+			}
+			m_Rigidbody2D.gravityScale = 0;
+			yield return new WaitForSeconds(0.00002f);
+		}
+		m_Rigidbody2D.gravityScale = orginalgravity;
+	}
+
+/* 
+		for(int i = 1; i < jfac; i++) 
+		{
+		if ((jfac/2 - jfac/4) <= i && i >= (jfac/2 + jfac/4)) 
+		{
+			m_Rigidbody2D.gravityScale = 0;
+			yield return new WaitForSeconds(0.00005f);
+		} else {
+			if (jfac % 10 == 0)
+			{
+				m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce/10));
+			}
+			m_Rigidbody2D.gravityScale = -1;
+			yield return new WaitForSeconds(0.00002f);
+		}
+*/
 
 	private void Flip()
 	{
