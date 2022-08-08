@@ -1,2 +1,2 @@
-# gamein2022
-First Game! :3
+# Scripts
+During summer holiday, there is nothing to do, so I try to make a game.
