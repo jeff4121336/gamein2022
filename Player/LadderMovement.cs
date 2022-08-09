@@ -33,7 +33,7 @@ public class LadderMovement : MonoBehaviour
             if (rb.gravityScale != 32f)
             {
                 StartCoroutine("LadderGravityDelay");
-                Debug.Log(rb.gravityScale);
+            //    Debug.Log(rb.gravityScale);
             }
         }
     }

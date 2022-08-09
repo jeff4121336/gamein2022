@@ -16,7 +16,6 @@ public class LinailAnimation : LinailMovement
     void Update() 
     {
         grounded = CC2DAnimation.m_Grounded;
-        Linail_Animation.SetBool("LinailAttackOne", false);
         Linail_Animation.SetBool("LinailJump", false);
         if (Input.GetKey(KeyCode.Space) && grounded == false)
         {
@@ -24,11 +23,11 @@ public class LinailAnimation : LinailMovement
             //Debug.Log("Animation-Jump Trigger!");
         }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            Linail_Animation.SetBool("LinailAttackOne", true);
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //    Linail_Animation.SetBool("LinailAttackOne", true);
             //Debug.Log("Animation-AttackOne Trigger!");
-        } 
+        //} 
 
         if (grounded) 
         {

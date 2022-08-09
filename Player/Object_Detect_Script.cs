@@ -33,7 +33,7 @@ using UnityEngine;
 public class Object_Detect_Script : MonoBehaviour
 {
 
-    protected BoxCollider2D bc2d;
+    protected CapsuleCollider2D bc2d;
     protected ContactFilter2D contactfilter;
     protected RaycastHit2D[] hitbuffer = new RaycastHit2D[16];
     protected float bcsizeX; // BOXCOLLIDER
@@ -57,7 +57,7 @@ public class Object_Detect_Script : MonoBehaviour
     void OnEnable() 
     {
     //  rb2d = GetComponent<Rigidbody2D>();
-        bc2d = GetComponent<BoxCollider2D>();
+        bc2d = GetComponent<CapsuleCollider2D>();
     }
     
 
