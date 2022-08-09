@@ -24,7 +24,7 @@ public class LinailMovement : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(run);
+        //Debug.Log(run);
         horizontal_initial = Input.GetAxisRaw("Horizontal") * walkspeed;
 
         if (Input.GetKey(KeyCode.R)) 
@@ -59,7 +59,7 @@ public class LinailMovement : MonoBehaviour
                 StartCoroutine("RunningEnergy");
             }
 
-        Debug.Log(horizontal_initial * Time.fixedDeltaTime);
+        //Debug.Log(horizontal_initial * Time.fixedDeltaTime);
         controller.Move(horizontal_initial * Time.fixedDeltaTime, jump);
         jump = false;
 
@@ -70,10 +70,10 @@ public class LinailMovement : MonoBehaviour
         yield return new WaitForSeconds(Running_Using_Energy_Time);
         if (run)
         {
-            EnergySlider.value -= 0.15f;
+            EnergySlider.value -= 0.6f;
         } else 
         {
-            EnergySlider.value += 0.085f;
+            EnergySlider.value += 0.15f;
         }
     }
 }

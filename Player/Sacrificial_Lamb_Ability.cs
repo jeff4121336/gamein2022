@@ -29,7 +29,7 @@ public class Sacrificial_Lamb_Ability : MonoBehaviour
         if (ManaSlider.value < ability_two.manaconsume)
         {
             abilityallow = false;
-            Debug.Log("NOT Enough Mana for ability_two");
+            //Debug.Log("NOT Enough Mana for ability_two");
         } else {
             abilityallow = true;
         }

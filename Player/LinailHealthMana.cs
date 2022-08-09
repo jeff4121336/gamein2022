@@ -5,49 +5,52 @@ using UnityEngine.UI;
 
 public class LinailHealthMana : MonoBehaviour
 {
-    [SerializeField] [Range(0, 100f)] public float health;
-    [SerializeField] [Range(0, 100f)] public float mana;
-    public Slider RegenerateMana;
-    public Slider RegenerateHealth;
-    public float RegenerateMana_AMT;
-    public float RegenerateHealth_AMT;
-    public float RegenerationMana_SPD;
-    public float RegenerationHealth_SPD;
+    [SerializeField] [Range(0, 200f)] public float default_health;
+    [SerializeField] [Range(0, 200f)] public float default_mana;
+    
+    public Slider Mana;
+    public Slider Health;
+    [SerializeField] [Range(0, 5f)] public float health_increase;
+    [SerializeField] [Range(0, 5f)] public float mana_increase;
+    [SerializeField] [Range(0, 10f)] public float regen_cd;
+
+    private ScreenFlash sf;
 
     void Start() 
     {
-        health = 100;
-        mana = 100;
+        Health.maxValue = default_health;
+        Mana.maxValue = default_mana;
+        sf = GetComponent<ScreenFlash>();
     }
     // Update is called once per frame
     void Update()
-    {
-        health = RegenerateHealth.value;
-        mana = RegenerateMana.value;
-        
-        if (RegenerateMana.value < 100) 
+    {   
+        if (Mana.value < default_mana) 
         {
-            StartCoroutine("RegenerationTimer_MANA"); 
+            StartCoroutine(regen_timer());
+            Mana.value += mana_increase * Time.deltaTime;
         }    
 
-        if (RegenerateHealth.value != 100) 
+        if (Health.value < default_health && Health.value > 0) 
         {
-            Debug.Log("Regenrate needed");
+            StartCoroutine(regen_timer());
+            Health.value += health_increase * Time.deltaTime;
         }   
     }
 
-    IEnumerator RegenerationTimer_MANA()
+    public void DamagePlayer(float damage) 
     {
-        yield return new WaitForSeconds(RegenerationMana_SPD);
-        RegenerateMana.value += RegenerateMana_AMT;
+        sf.screenflash();
+        Debug.Log(damage);
+        Health.value -= damage * 0.5f; //COLLIDERS TRIGGER TWICE A TIME
+        if (Health.value <= 0) 
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public void DamagePlayer(int damage) 
+    IEnumerator regen_timer() 
     {
-        health -= damage;
-        if (health <= 0) 
-        {
-            Destory(gameObject);
-        }
+        yield return new WaitForSeconds(regen_cd);
     }
 }

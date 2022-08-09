@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Slime : Enemy
 {
-    [SerializeField] private Animator DeadAnim;
-
+    [SerializeField] private Animator Anim;
+    
     // Start is called before the first frame update
     public new void Start()
     {
         base.Start();
-        DeadAnim = gameObject.GetComponent<Animator>();
+        Anim = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -19,8 +19,8 @@ public class Slime : Enemy
         base.Update();
         if (destory_anim) 
         {
-            Debug.Log("anim!");
-            DeadAnim.SetTrigger("Death");
+            //Debug.Log("anim!");
+            Anim.SetTrigger("Death");
         }
     }
 
